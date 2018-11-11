@@ -21,17 +21,12 @@ export default {
     handleSubmit() {
       this.submitted = true
     },
-    handleSubmitAsync() {
-      return this.$http.get('/api/v1/register', { username: this.username })
-        .then(() => {
-          // メッセージを表示するなど
-          this.submitted = true
-        })
-        .catch(e => {
-          // エラーをハンドル
-          throw Error('Something went wrong', e)
-        })
-
+    async handleSubmitAsync() {
+      try {
+        await this.$http.get('/api/v1/register', { username: this.username })
+      } catch(e) {
+        throw Error('Something went wrong', e)
+      }
     }
   }
 }
